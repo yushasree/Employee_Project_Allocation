@@ -1,0 +1,7 @@
+ProjectID;ProjectName;Description;StartDate;EndDate;EmpID;ProjectPriority;ProjectStatus;ClientName
+220;Cloud Migration;Migrating client's infrastructure to the cloud;2022-01-01;2022-12-31;101;High;Completed;ZAB Enterprises
+221;AI Development;Developing AI models for the client;2023-02-01;2023-12-31;101;High;In Progress;ABC Enterprises
+222;Data Migration;Migrating client's data to a new system;2022-07-01;2022-12-31;102;Medium;Completed;CDE Pvt Ltd
+223;Cybersecurity;Implementing cybersecurity measures for the client;2023-07-01;2023-12-31;102;Medium;In Progress;FGH Enterprises
+224;Supply Chain Management;Improving client's supply chain processes;2022-03-01;2022-08-01;103;Low;Completed;IJK Pvt Ltd
+225;Business Process Optimization;Optimizing client's business processes;2023-01-01;2023-12-31;103;Medium;In Progress;LMN Enterprises

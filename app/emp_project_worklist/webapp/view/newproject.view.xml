@@ -1,0 +1,46 @@
+<mvc:View
+    controllerName="empprojectworklist.controller.newproject"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form">
+
+    <Page title="{i18n>Add New Project}">
+        <content>
+            <FlexBox justifyContent="Center" alignItems="Center" direction="Column" width="50%">
+                <items>
+                    <form:SimpleForm id="AddProjectForm" editable="true" layout="ResponsiveGridLayout">
+                        
+                        <Label text="{i18n>ProjectID}"/>
+                        <Input value="{ProjectID}" maxLength="10" />
+
+                        <Label text="{i18n>Name}"/>
+                        <Input value="{Name}" maxLength="10" />
+
+                        <Label text="{i18n>Description}"/>
+                        <Input value="{Description}" maxLength="20" />
+
+                        <Label text="{i18n>StartDate}"/>
+                        <DatePicker value="{StartDate}" />
+
+                        <Label text="{i18n>EndDate}"/>
+                        <DatePicker value="{EndDate}" />
+
+                        <Label text="{i18n>EmployeeID}"/>
+                        <Input value="{EmpID}" maxLength="5" />
+
+                        <Label text="{i18n>ProjectPriority}"/>
+                        <Input value="{ProjectPriority}" maxLength="5" />
+
+                        <Label text="{i18n>ProjectStatus}"/>
+                        <Input value="{ProjectStatus}" maxLength="10" />
+
+                        <Label text="{i18n>ClientName}"/>
+                        <Input value="{ClientName}" maxLength="15" />
+                    </form:SimpleForm>
+
+                    <Button text="{i18n>Save}" press=".onSaveProject"/>
+                </items>
+            </FlexBox>
+        </content>
+    </Page>
+</mvc:View>

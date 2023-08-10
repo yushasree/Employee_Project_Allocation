@@ -1,0 +1,115 @@
+_schema-version: "3.1"
+ID: Employee_Project_Allocation
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: Employee_Project_Allocation-srv
+  type: nodejs
+  path: gen/srv
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+  build-parameters:
+    builder: npm-ci
+- name: Employee_Project_Allocation-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: Employee_Project_Allocation-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - empproj.zip
+      name: empproj
+      target-path: resources/
+    - artifacts:
+      - empprojectwor.zip
+      name: empprojectwor
+      target-path: resources/
+    - artifacts:
+      - epw.zip
+      name: epw
+      target-path: resources/
+    - artifacts:
+      - empprojectworklist.zip
+      name: empprojectworklist
+      target-path: resources/
+- name: empproj
+  type: html5
+  path: app/emp_proj
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: empprojectwor
+  type: html5
+  path: app/emp_project_wor
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: epw
+  type: html5
+  path: app/e_p_w
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: empprojectworklist
+  type: html5
+  path: app/emp_project_worklist
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: Employee_Project_Allocation-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: Employee_Project_Allocation-html5-srv
+    service-plan: app-host
+- name: Employee_Project_Allocation-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: Employee_Project_Allocation-destination-service
+    service-plan: lite
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npx -p @sap/cds-dk cds build --production

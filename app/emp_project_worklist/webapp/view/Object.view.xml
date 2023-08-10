@@ -1,0 +1,256 @@
+<mvc:View
+    controllerName="empprojectworklist.controller.Object"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+    xmlns:semantic="sap.f.semantic">
+
+    <semantic:SemanticPage
+        id="page"
+        headerPinnable="false"
+        toggleHeaderOnTitleClick="false"
+        busy="{objectView>/busy}"
+        busyIndicatorDelay="{objectView>/delay}">
+
+        <semantic:titleHeading>
+            <Title id="employeeTitle"
+                text="{EmpID}"
+                
+                level="H2"/>
+        </semantic:titleHeading>
+
+        <semantic:headerContent>
+            <ObjectNumber
+                unit="{Department}"/>
+        </semantic:headerContent>
+
+        <l:VerticalLayout>
+
+<Panel id="EmployeeDetailsPanel" headerText="{i18n>Employee Details}" class="sapUiResponsiveMargin" width="auto">
+<Label text="Create New Employee" />
+<Switch id="isNew" change="onNewEmployee" customTextOn="Yes" customTextOff="No">
+                            <layoutData>
+                                <FlexItemData growFactor="1" />
+                            </layoutData>
+                        </Switch>
+<Toolbar>
+		<ToolbarSpacer/>
+		<Button icon="sap-icon://save" press=".onSaveEmployees"/>
+        <Button icon="sap-icon://delete" press="onDeleteEmployee"/>	
+	</Toolbar>
+		<form:SimpleForm id="empdetailsform" editable="true" layout="ColumnLayout">
+			<Label text="{i18n>EmployeeID}"/>
+			<Input id="empid" value="{EmpID}" enabled="false"/>
+
+           <!-- enabled="false" -->
+
+			<Label text="{i18n>Employee Name}"/>
+			<Input id="Name" value="{Name}"/>
+
+			<Label text="{i18n>Designation}"/>
+			<Input id="Designation" value="{Designation}"/>
+
+			<Label text="{i18n>Department}"/>
+			<Input id="Department" value="{Department}"/>
+
+			<Label text="{i18n>Date of joining}"/>
+			<!-- <Input id="DOJ" value="{DateOfJoining}"/> -->
+            <DatePicker id="DOJ" value="{path:'DateOfJoining',type:'sap.ui.model.type.Date',
+                                        formatOptions: {pattern: 'yyyy-MM-dd', strictParsing: true , UTC: true} }"/>
+
+
+            <Label text="{i18n>Email_id}"/>
+			<Input id="Email" value="{Email}"/>
+
+            <Label text="{i18n>contactnumber}"/>
+			<Input id="ContactNumber" value="{ContactNumber}"/>
+
+            <Label text="{i18n>location}"/>
+			<Input id="Location" value="{Location}"/>
+
+            <Label text="{i18n>employeetype}"/>
+			<Input id="Employeetype" value="{Employeetype}"/>
+			
+		</form:SimpleForm>
+	</Panel>
+
+ <Panel id="ProjectDetailsPanel" headerText="{i18n>Project Details}" class="sapUiResponsiveMargin" width="auto">
+ <headerToolbar>
+      <Toolbar>
+          <SearchField width="25%" search=".onSearchProject"/>
+          <ToolbarSpacer/>
+          <!-- <Button text="{i18n>Add Project}" press=".onAddProject"/> -->
+      </Toolbar>
+  </headerToolbar>
+        
+
+        <Table id="projectsTable" items="{path: 'to_Project'}">
+            
+
+            <columns>
+            <Column><Text text="Project ID"/></Column>
+            <Column><Text text="Project Name"/></Column>
+
+            <!-- <Column><Text text="Start Date"/></Column> -->
+            <!-- <Column><Text text="End Date"/></Column> -->
+            <Column><Text text="Priority"/></Column>
+            <Column><Text text="Status"/></Column>
+        </columns>
+        <items>
+            <ColumnListItem type="Navigation"  press=".onProjectReqPress">
+                <cells>
+                    <ObjectIdentifier title="{ProjectID}"/>
+
+                    <ObjectIdentifier
+                                title="{ProjectName}" />
+
+                    
+
+                     <!-- <ObjectIdentifier
+                                title="{path:'StartDate',type:'sap.ui.model.type.Date', 
+                                        formatOptions: {pattern: 'yyyy-MM-dd', strictParsing: true , UTC: true} }"/>
+                    
+                    <ObjectIdentifier
+                                title="{path:'EndDate',type:'sap.ui.model.type.Date', 
+                                        formatOptions: {pattern: 'yyyy-MM-dd', strictParsing: true , UTC: true} }"/> -->
+
+                    <ObjectIdentifier
+                                title="{ProjectPriority}" />
+
+                    <ObjectIdentifier
+                                title="{ProjectStatus}" />
+                                        
+
+                                        
+
+                    <!-- <Text text="{ProjectName}"/>
+
+                    <Text text="{StartDate}"/>
+                                              
+                    <Text text="{EndDate}"/>
+                    <Text text="{ProjectPriority}"/>
+                    <Text text="{ProjectStatus}"/> -->
+                </cells>
+            </ColumnListItem>
+        </items>
+
+        </Table> 
+
+
+        <!-- <Table
+                id="proTable"
+                width="auto"
+                items="{
+                    path: '/Project',
+                    sorter: {
+                        path: 'ProjectId',
+                        descending: false
+                    }
+                }"
+                noDataText="{worklistView>/tableNoDataText}"              
+                growing="true"
+                growingScrollToLoad="true"
+                updateFinished=".onUpdateFinished">
+
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title
+                            id="tableHeader"
+                            text="Employee ({EmpID}) - Project"
+                            level="H3"/>
+                        <ToolbarSpacer />
+                        <SearchField
+                            id="searchField"
+                            tooltip="{i18n>worklistSearchTooltip}"
+                            search=".onSearch">
+                            <layoutData>
+                                <OverflowToolbarLayoutData
+                                    maxWidth="200px"
+                                    priority="NeverOverflow"/>
+                            </layoutData>
+                        </SearchField>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column>
+                        <Text text="{i18n>ProjectID}" id="pid"/>
+                    </Column>
+                    <Column hAlign="End">
+                        <Text text="{i18n>ProjectName}"/>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem  id="pItems" type="Navigation"                  
+                        press=".onLeaveReqPress">
+                        <cells>
+                            <ObjectIdentifier
+                                title="{path:'ProjectID'}"/>
+                            <ObjectIdentifier
+                                title="{ProjectName}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table> -->
+    </Panel>
+
+    <Panel id="ProjectDetails" headerText="{i18n>Project Details}" class="sapUiResponsiveMargin" width="auto">
+<Label text="Create New Project" />
+<Switch id="isNewProject" change="onNewProject" customTextOn="Yes" customTextOff="No">
+                            <layoutData>
+                                <FlexItemData growFactor="1" />
+                            </layoutData>
+                        </Switch>
+<Toolbar>
+		<ToolbarSpacer/>
+		<Button icon="sap-icon://save" press=".onSaveProject"/>
+        <Button icon="sap-icon://delete" press="onDeleteProject"/>	
+	</Toolbar>
+		<form:SimpleForm id="projdetailsform" editable="true" layout="ColumnLayout">
+			<Label text="{i18n>ProjectID}"/>
+			<Input id="projectid" value="{ProjectID}" enabled="false"/>
+
+           <Label text="{i18n>EmpID}"/>
+			<Input id="projEmpID" value="{EmpID}"/>
+
+			<Label text="{i18n>Project Name}"/>
+			<Input id="projectname" value="{ProjectName}"/>
+
+			<Label text="{i18n>Project Description}"/>
+			<Input id="Description" value="{Description}"/>
+
+			<Label text="{i18n>StartDate}"/>
+			<!-- <Input id="StartDate" value="{StartDate}"/> -->
+            <DatePicker id="StartDate" value="{path:'StartDate',type:'sap.ui.model.type.Date',
+                                        formatOptions: {pattern: 'yyyy-MM-dd', strictParsing: true , UTC: true} }"/>
+
+			<Label text="{i18n>EndDate}"/>
+			<!-- <Input id="EndDate" value="{EndDate}"/> -->
+            <DatePicker id="EndDate" value="{path:'EndDate',type:'sap.ui.model.type.Date',
+                                        formatOptions: {pattern: 'yyyy-MM-dd', strictParsing: true , UTC: true} }"/>
+
+            <Label text="{i18n>ProjectPriority}"/>
+			<Input id="ProjectPriority" value="{ProjectPriority}"/>
+
+            <Label text="{i18n>ProjectStatus}"/>
+			<Input id="ProjectStatus" value="{ProjectStatus}"/>
+
+            <Label text="{i18n>ClientName}"/>
+			<Input id="ClientName" value="{ClientName}"/>
+
+            
+			
+		</form:SimpleForm>
+	</Panel>
+</l:VerticalLayout>
+        <semantic:sendEmailAction>
+            <semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
+        </semantic:sendEmailAction>
+
+    </semantic:SemanticPage>
+
+
+
+</mvc:View>

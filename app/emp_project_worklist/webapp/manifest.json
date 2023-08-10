@@ -1,0 +1,161 @@
+{
+  "_version": "1.49.0",
+  "sap.app": {
+    "id": "empprojectworklist",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:worklist",
+      "version": "1.10.3",
+      "toolsId": "d67d6620-7640-4cfc-b5e0-19cc18961a1a"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/v2/catalog/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.116.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "empprojectworklist.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true,
+          "useBatch": false
+        }
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "empprojectworklist.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "bypassed": {
+          "target": [
+            "notFound"
+          ]
+        },
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "worklist",
+          "target": [
+            "worklist"
+          ]
+        },
+        {
+          "pattern": "Employee/{objectId}",
+          "name": "object",
+          "target": [
+            "object"
+          ]
+        },
+        {
+          "pattern": "newproject",
+          "name": "newproject",
+          "target": [
+            "newproject"
+          ]
+        }
+      ],
+      "targets": {
+        "worklist": {
+          "viewName": "Worklist",
+          "viewId": "worklist",
+          "viewLevel": 1,
+          "title": "{i18n>worklistViewTitle}"
+        },
+        "object": {
+          "viewName": "Object",
+          "viewId": "object",
+          "viewLevel": 2,
+          "title": "{i18n>objectViewTitle}"
+        },
+        "objectNotFound": {
+          "viewName": "ObjectNotFound",
+          "viewId": "objectNotFound"
+        },
+        "notFound": {
+          "viewName": "NotFound",
+          "viewId": "notFound"
+        },
+        "newproject": {
+          "viewName": "newproject",
+          "viewId": "newproject",
+         
+          "title": "newproject"
+        }
+
+      }
+    },
+    "rootView": {
+      "viewName": "empprojectworklist.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    }
+  }
+}

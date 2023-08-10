@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Employee" EntityType="CatalogService.Employee">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Employee"/>
+                </EntitySet>
+                <EntitySet Name="Project" EntityType="CatalogService.Project">
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="Project"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Employee">
+                <Key>
+                    <PropertyRef Name="EmpID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="EmpID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="20"/>
+                <Property Name="Designation" Type="Edm.String" MaxLength="20"/>
+                <Property Name="Department" Type="Edm.String" MaxLength="20"/>
+                <Property Name="DateOfJoining" Type="Edm.Date"/>
+                <Property Name="Email" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ContactNumber" Type="Edm.String" MaxLength="15"/>
+                <Property Name="Location" Type="Edm.String" MaxLength="20"/>
+                <Property Name="Employeetype" Type="Edm.String" MaxLength="20"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.Employee"/>
+            </EntityType>
+            <EntityType Name="Project">
+                <Key>
+                    <PropertyRef Name="ProjectID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ProjectID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Name" Type="Edm.String" MaxLength="25"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="20"/>
+                <Property Name="StartDate" Type="Edm.Date"/>
+                <Property Name="EndDate" Type="Edm.Date"/>
+                <Property Name="EmpID" Type="Edm.Int32"/>
+                <Property Name="ProjectPriority" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ProjectStatus" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ClientName" Type="Edm.String" MaxLength="20"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="CatalogService.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="CatalogService.Project"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Employee"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.Employee"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Project"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="CatalogService.Project"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Employee"/>
+                <ReturnType Type="CatalogService.Employee"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Project"/>
+                <ReturnType Type="CatalogService.Project"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Employee"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.Employee"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="CatalogService.Project"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="CatalogService.Project"/>
+            </Action>
+            <Annotations Target="CatalogService.EntityContainer/Employee">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Employee/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Employee/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Employee/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Employee/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.EntityContainer/Project">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="CatalogService.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="CatalogService.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="CatalogService.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.Project/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Project/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Project/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.Project/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="CatalogService.DraftAdministrativeData">
+                <Annotation Term="Common.Label" String="{i18n>Draft_DraftAdministrativeData}"/>
+                </Annotations>
+                <Annotations Target="CatalogService.DraftAdministrativeData/DraftUUID">
+                    <Annotation Term="UI.Hidden" Bool="true"/>
+                    <Annotation Term="Common.Label" String="{i18n>Draft_DraftUUID}"/>
+                    </Annotations>
+                    <Annotations Target="CatalogService.DraftAdministrativeData/CreationDateTime">
+                        <Annotation Term="Common.Label" String="{i18n>Draft_CreationDateTime}"/>
+                        </Annotations>
+                        <Annotations Target="CatalogService.DraftAdministrativeData/CreatedByUser">
+                            <Annotation Term="Common.Label" String="{i18n>Draft_CreatedByUser}"/>
+                            </Annotations>
+                            <Annotations Target="CatalogService.DraftAdministrativeData/DraftIsCreatedByMe">
+                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsCreatedByMe}"/>
+                                </Annotations>
+                                <Annotations Target="CatalogService.DraftAdministrativeData/LastChangeDateTime">
+                                    <Annotation Term="Common.Label" String="{i18n>Draft_LastChangeDateTime}"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.DraftAdministrativeData/LastChangedByUser">
+                                        <Annotation Term="Common.Label" String="{i18n>Draft_LastChangedByUser}"/>
+                                        </Annotations>
+                                        <Annotations Target="CatalogService.DraftAdministrativeData/InProcessByUser">
+                                            <Annotation Term="Common.Label" String="{i18n>Draft_InProcessByUser}"/>
+                                            </Annotations>
+                                            <Annotations Target="CatalogService.DraftAdministrativeData/DraftIsProcessedByMe">
+                                                <Annotation Term="UI.Hidden" Bool="true"/>
+                                                <Annotation Term="Common.Label" String="{i18n>Draft_DraftIsProcessedByMe}"/>
+                                                </Annotations>
+                                            </Schema>
+                                        </edmx:DataServices>
+                                    </edmx:Edmx>
