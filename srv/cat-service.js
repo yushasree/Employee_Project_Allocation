@@ -25,7 +25,8 @@
 
 
 const cds = require('@sap/cds');
-const {Project} = cds.entities('my.employee.project');
+const crypto = require("crypto");
+const {Project,ChangeLog} = cds.entities('my.employee.project');
 
 module.exports = cds.service.impl(async function() {  
     
@@ -44,7 +45,14 @@ const validateEmployeeDelete = async (req) =>
         return req.reject({code:"400",message:"Employee has project Pending, Cannot be deleted"});
     }
     else
+    // req.info({code:"200", message: "Employee Deleted"}); 
+{
+    const uuid = crypto.randomUUID();
+    var insertedRecords = await INSERT.into(ChangeLog).values(uuid, empId, new Date());
+    console.log("insertedRecords",insertedRecords);
     req.info({code:"200", message: "Employee Deleted"}); 
+}
+    
 }
 const validateEmail = (email) => {
     var emailRegEx = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;

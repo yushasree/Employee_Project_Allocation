@@ -54,3 +54,10 @@ entity Project {
   ClientName : String(20);
   to_Employee : Association[0..1] to Employee on to_Employee.EmpID = $self.EmpID;
 }
+
+entity ChangeLog {
+
+  Key EmpChangeLogID: UUID;
+  EmpID : String(10);
+  changeDate : Date;
+}
