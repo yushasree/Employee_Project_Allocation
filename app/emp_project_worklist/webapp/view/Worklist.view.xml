@@ -99,13 +99,13 @@ id="table1"
 
  <columns>
  <Column id="logid">
- <Text id="ELogID" text="EmpChangeLogID"/>
+ <Text id="ELogID" text="{i18n>EmpChangeLogID}"/>
  </Column>
  <Column id="elid" hAlign="End">
- <Text id="text1" text="EmpID"/>
+ <Text id="text1" text="{i18n>EmpID}"/>
  </Column>
  <Column id="cd" hAlign="End">
- <Text id="text" text="changeDate"/>
+ <Text id="text" text="{i18n>changeDate}"/>
  </Column>
  </columns>
 

@@ -112,8 +112,8 @@ sap.ui.define([
         onRefresh : function () {
             var oTable = this.byId("table");
             oTable.getBinding("items").refresh();
-            var oTable1 = this.byId("table1");
-            oTable1.getBinding("items").refresh();
+            // var oTable1 = this.byId("table1");
+            // oTable1.getBinding("items").refresh();
         },
 
         /* =========================================================== */

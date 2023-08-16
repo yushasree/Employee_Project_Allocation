@@ -22,9 +22,7 @@ sap.ui.define([
             // call the base component's init function
             UIComponent.prototype.init.apply(this, arguments);
 
-            // set up your logging model here
-            var oLogModel = new sap.ui.model.json.JSONModel([]);
-            this.setModel(oLogModel, "log");
+            
 
             // initialize the error handler with the component
             this._oErrorHandler = new ErrorHandler(this);

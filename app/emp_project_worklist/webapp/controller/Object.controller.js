@@ -65,20 +65,12 @@ sap.ui.define([
             this.getView().byId("isNew").setState(false);
             var sObjectId =  oEvent.getParameter("arguments").objectId;
             this._bindView("/Employee" + sObjectId);
-            // this.bindLeaveRequestTable();
+            
 
     
         },
 
-        // bindLeaveRequestTable: function()
-        // {
-        //     var leavereqTable = this.getView().byId("proTable");
-        //     var leavereqItems = this.getView().byId("pItems").clone();
-        //     var employeeId = this.getView().byId("employeeTitle").getText();
-        //     var empId = [new Filter("EmpID", FilterOperator.EQ, employeeId)];
-        //     leavereqTable.bindAggregation("items",{path:"/Project",template:leavereqItems, 
-        //     filters:empId});
-        // },
+        
 
         /**
          * Binds the view to the object path.
@@ -117,7 +109,7 @@ sap.ui.define([
                 this.getRouter().getTargets().display("objectNotFound");
                 return;
             }
-            var oObject = oView.getBindingContext().getObject();
+            // var oObject = oView.getBindingContext().getObject();
         
            
                         // if (oObject) {
