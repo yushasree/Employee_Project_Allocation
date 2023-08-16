@@ -57,7 +57,7 @@ entity Project {
 
 entity ChangeLog {
 
-  EmpChangeLogID: UUID;
+  Key EmpChangeLogID : UUID;
   EmpID : String(10);
   changeDate : Date;
 }

@@ -112,9 +112,9 @@ id="table1"
  <items>
  <ColumnListItem>
  <cells>
- <Text id="t1" text="{EmpChangeLogID}"/>
- <Text id="t2" text="{EmpID}"/>
- <Text id="t3" text ="{changeDate}"/>
+ <ObjectIdentifier id="t1" title="{EmpChangeLogID}"/>
+ <ObjectIdentifier id="t2" title="{EmpID}"/>
+ <ObjectIdentifier id="t3" title="{changeDate}"/>
  </cells>
  </ColumnListItem>
  </items>
