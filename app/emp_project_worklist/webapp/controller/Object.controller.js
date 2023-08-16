@@ -176,23 +176,7 @@ sap.ui.define([
             });
         },
 
-        // onDeleteEmployee: function(oEvent) {
-        //     var oModel = this.getView().getModel();
-        //     var empId = this.getView().byId("empid").getValue();
         
-        //     // Get the data of the employee  to delete
-        //     var oEmployee = this.getView().getBindingContext().getObject();
-            
-        //     oModel.remove("/Employee('" + empId + "')", {               
-        //         success: function(data) {
-                    
-                    
-        //             },
-        //         error: function(oError) {                      
-                    
-        //         }
-        //     });
-        // },
         
 
         onSaveEmployees: function(oEvent){

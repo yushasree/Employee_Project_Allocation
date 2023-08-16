@@ -20,6 +20,7 @@
         <l:VerticalLayout>
 
         <Panel id="Empdetails1" headerText="{i18n>Project Details}" class="sapUiResponsiveMargin" width="auto">
+        <content>
             <Table
                 id="table"
                 width="auto"
@@ -73,16 +74,18 @@
                             <ObjectIdentifier
                                 title="{EmpID}"/>
                             <ObjectNumber
-                                unit="{Department}" />
+                                unit="{Department}"/>
                         </cells>
                     </ColumnListItem>
                 </items>
             </Table>
+            </content>
 
             </Panel>
             
 
             <Panel id="E" headerText="{i18n>Log Data}" class="sapUiResponsiveMargin" width="auto">
+            <content>
 <Table
 id="table1"
  width="auto"
@@ -96,13 +99,13 @@ id="table1"
 
  <columns>
  <Column id="logid">
- <Text text="{i18n>empChangeLogId}" id="EmpChangeLogID"/>
+ <Text id="ELogID" text="EmpChangeLogID"/>
  </Column>
  <Column id="elid" hAlign="End">
- <Text id="text1" text="{i18n>EmpID}"/>
+ <Text id="text1" text="EmpID"/>
  </Column>
  <Column id="cd" hAlign="End">
- <Text id="text" text="{i18n>changeDate}"/>
+ <Text id="text" text="changeDate"/>
  </Column>
  </columns>
 
@@ -111,11 +114,12 @@ id="table1"
  <cells>
  <Text id="t1" text="{EmpChangeLogID}"/>
  <Text id="t2" text="{EmpID}"/>
- <Text id="t3" text ="{changeDate}" />
+ <Text id="t3" text ="{changeDate}"/>
  </cells>
  </ColumnListItem>
  </items>
  </Table>
+ </content>
 
 
      
