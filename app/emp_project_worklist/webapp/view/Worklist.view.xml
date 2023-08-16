@@ -15,8 +15,10 @@
                 text="{i18n>worklistTitle}"
                 level="H2"/>
         </semantic:titleHeading>
- <l:VerticalLayout>
-        <!-- <semantic:content> -->
+ 
+        <semantic:content>
+        <l:VerticalLayout>
+
         <Panel id="Empdetails1" headerText="{i18n>Project Details}" class="sapUiResponsiveMargin" width="auto">
             <Table
                 id="table"
@@ -118,8 +120,11 @@ id="table1"
 
      
     </Panel>
-    </l:VerticalLayout>
-        <!-- </semantic:content> -->
+
+     </l:VerticalLayout>
+    
+        </semantic:content>
+       
 
         
 
