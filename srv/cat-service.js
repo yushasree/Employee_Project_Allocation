@@ -31,9 +31,32 @@ const {Project,ChangeLog} = cds.entities('my.employee.project');
 module.exports = cds.service.impl(async function() {  
     
     this.before('CREATE','Employee', validateEmployeeCreate);
+    this.on('READ','EmployeePersonalInfo', readEmployees); 
     this.on('UPDATE','Employee', validateEmployeeChanges); 
     this.before('DELETE','Employee', validateEmployeeDelete); 
+
+    const { Position } = this.entities;
+    const service = await cds.connect.to('sf');
+
+      
+    this.on('READ', Position, request => {
+        return service.tx(request).run(request.query);
+    });
+
+    const { PerPersonal } = this.entities;
+    const service1 = await cds.connect.to('sf');
+
+      
+    this.on('READ', PerPersonal, request => {
+        return service1.tx(request).run(request.query);
+    });
 });
+
+const readEmployees = async (req,next) =>
+{
+    var entity = next();
+    return entity;
+}
 const validateEmployeeDelete = async (req) => 
 {
     var empId = req.data.EmpID;

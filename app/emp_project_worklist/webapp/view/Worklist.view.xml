@@ -80,18 +80,42 @@
             </Panel>
             
 
-            <Panel id="E" headerText="{i18n>Employee Details}" class="sapUiResponsiveMargin" width="auto">
-<Label text="Create New Employee" />
-<Switch id="isNew" change="onNewEmployee" customTextOn="Yes" customTextOff="No">
-                            <layoutData>
-                                <FlexItemData growFactor="1" />
-                            </layoutData>
-                        </Switch>
-<Toolbar>
-		<ToolbarSpacer/>
-		<Button icon="sap-icon://save" press=".onSaveEmployees"/>
-        <Button icon="sap-icon://delete" press="onDeleteEmployee"/>	
-	</Toolbar>
+            <Panel id="E" headerText="{i18n>Log Data}" class="sapUiResponsiveMargin" width="auto">
+<Table
+id="table1"
+ width="auto"
+ items="{
+ path: '/ChangeLog',
+ sorter: {
+ path: 'EmpChangeLogID',
+ descending: false
+ }
+ }">
+
+ <columns>
+ <Column id="logid">
+ <Text text="{i18n>empChangeLogId}" id="EmpChangeLogID"/>
+ </Column>
+ <Column id="elid" hAlign="End">
+ <Text id="text1" text="{i18n>EmpID}"/>
+ </Column>
+ <Column id="cd" hAlign="End">
+ <Text id="text" text="{i18n>changeDate}"/>
+ </Column>
+ </columns>
+
+ <items>
+ <ColumnListItem>
+ <cells>
+ <Text id="t1" text="{EmpChangeLogID}"/>
+ <Text id="t2" text="{EmpID}"/>
+ <Text id="t3" text ="{changeDate}" />
+ </cells>
+ </ColumnListItem>
+ </items>
+ </Table>
+
+
      
     </Panel>
     </l:VerticalLayout>
