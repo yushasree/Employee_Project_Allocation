@@ -9,3 +9,4 @@ service CatalogService {
      entity PerPersonal as projection on external. PerPersonal;
 
 }
+ 

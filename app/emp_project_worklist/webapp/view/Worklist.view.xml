@@ -95,17 +95,25 @@ id="table1"
  path: 'EmpChangeLogID',
  descending: false
  }
+
  }">
+
+
+
+  <!-- sorter: {
+ path: 'EmpChangeLogID',
+ descending: false
+ } -->
 
  <columns>
  <Column id="logid">
- <Text id="ELogID" text="{i18n>EmpChangeLogID}"/>
+ <Text id="ELogID" text="EmpChangeLogID"/>
  </Column>
  <Column id="elid" hAlign="End">
- <Text id="text1" text="{i18n>EmpID}"/>
+ <Text id="text1" text="EmpID"/>
  </Column>
  <Column id="cd" hAlign="End">
- <Text id="text" text="{i18n>changeDate}"/>
+ <Text id="text" text="changeDate"/>
  </Column>
  </columns>
 

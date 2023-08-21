@@ -3,8 +3,10 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/routing/History",
     "../model/formatter",
-    "sap/m/MessageBox"
-], function (BaseController, JSONModel, History, formatter, MessageBox) {
+    "sap/m/MessageBox",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+], function (BaseController, JSONModel, History, formatter, MessageBox, Filter, FilterOperator) {
     "use strict";
 
     return BaseController.extend("empprojectworklist.controller.Object", {
@@ -65,6 +67,7 @@ sap.ui.define([
             this.getView().byId("isNew").setState(false);
             var sObjectId =  oEvent.getParameter("arguments").objectId;
             this._bindView("/Employee" + sObjectId);
+             this.bindPostionTable();
             
 
     
@@ -149,6 +152,7 @@ sap.ui.define([
 
         onDeleteEmployee: function(oEvent)
         {
+            debugger;
             
             var oModel = this.getView().getModel();
             oModel.setUseBatch(false);
@@ -328,7 +332,17 @@ sap.ui.define([
             }
         });
     },  
-    
+    bindPostionTable: function()
+    {
+        // debugger;
+        var positionTable = this.getView().byId("positionTable");
+        if(!this.positionItems)
+        this.positionItems = this.getView().byId("positionItems").clone();
+        var empid = this.getView().byId("employeeTitle").getText();
+        var EmpID = [new Filter("code", FilterOperator.EQ, empid)];
+        positionTable.bindAggregation("items",{path:"/Position",template:this.positionItems, 
+        filters:EmpID});
+    },
     onNewProject: function(oEvent)
 
         {

@@ -1,32 +1,6 @@
-// const cds = require('@sap/cds');
-
-// module.exports = cds.service.impl(async function() {  
-    
-//     this.before('CREATE','Employee', validateEmployeeCreate);
-//     this.on('UPDATE','Employee', validateEmployeeChanges); 
-// });
-
-// const validateEmployeeCreate = async (req) => 
-// {
-//     if(req.data.EmpID.length>5)
-//     return req.reject({code:"500", message: "Invalid Employee Id, Cannot be more than 5 chars"}); 
-//     else
-//     return req.info({code:"200", message: "New Employee Created"}); 
-// }
-
-// const validateEmployeeChanges = async (req) => 
-// {
-//     console.log("Request data from UI:",req.data);
-//     if(req.data.Name==="")
-//     return req.reject({code:"500", message: "Employee Name cannot be Empty"}); 
-//     else
-//     return req.info({code:"200", message: "Employee Changes Saved"});
-// }
-
-
 const cds = require('@sap/cds');
 const crypto = require("crypto");
-const {Project,ChangeLog} = cds.entities('my.employee.project');
+const {Project,ChangeLog} = cds.entities(' my.employee.project');
 
 module.exports = cds.service.impl(async function() {  
     
@@ -34,23 +8,41 @@ module.exports = cds.service.impl(async function() {
     this.on('READ','EmployeePersonalInfo', readEmployees); 
     this.on('UPDATE','Employee', validateEmployeeChanges); 
     this.before('DELETE','Employee', validateEmployeeDelete); 
+    this.on('READ', 'Position', readPostions);
 
-    const { Position } = this.entities;
-    const service = await cds.connect.to('sf');
-
-      
-    this.on('READ', Position, request => {
-        return service.tx(request).run(request.query);
-    });
-
-    const { PerPersonal } = this.entities;
-    const service1 = await cds.connect.to('sf');
+//     const { Position } = this.entities;
+//     const service = await cds.connect.to('sf');
 
       
-    this.on('READ', PerPersonal, request => {
-        return service1.tx(request).run(request.query);
-    });
+//     this.on('READ', Position, request => {
+//         return service.tx(request).run(request.query);
+//     });
+
+//     const { PerPersonal } = this.entities;
+//     const service1 = await cds.connect.to('sf');
+
+      
+//     this.on('READ', PerPersonal, request => {
+//         return service1.tx(request).run(request.query);
+//     });
+// });
+
 });
+
+const readPostions = async (req,next) =>
+{
+     const service = await cds.connect.to('sf');
+    // var positionData = await service.run(req.query);   
+    // return positionData;
+      
+    // const {Position} = service.entities;
+    // var positionData = await service.run(SELECT.from(Position).where({ code: "201" })); 
+    // var positionData = await service.run(req.query); 
+    // return positionData;
+    // const service = await cds.connect.to('sf');
+    var positionData = await service.run(req.query);   
+    return positionData;
+}
 
 const readEmployees = async (req,next) =>
 {
